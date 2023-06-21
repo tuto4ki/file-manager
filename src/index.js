@@ -8,6 +8,7 @@ import { list } from './nwd/list.js';
 import read from './fs/read.js';
 import create from './fs/create.js';
 import rename from './fs/rename.js';
+import remove from './fs/delete.js';
 
 const userName = parseArgs();
 
@@ -39,6 +40,8 @@ rl.on('line', (input) => {
         throw new Error(`${EOL}Enter correct data${EOL}`);
       }
       rename(fileNameArr[1], fileNameArr[2]);
+    } else if (/^rm /.test(input)) {
+      remove(input.split(' ')[1]);
     } else {
       console.log(`Invalid input${EOL}`);
     }
