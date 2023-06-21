@@ -5,6 +5,7 @@ import { stdin, stdout } from 'process';
 import { EOL } from 'os';
 import { cdDir } from './nwd/cd.js';
 import { list } from './nwd/list.js';
+import read from './fs/read.js';
 
 const userName = parseArgs();
 
@@ -24,7 +25,9 @@ rl.on('line', (input) => {
     cdDir(input);
   } else if (input === 'ls') {
     list();
-  }else {
+  } else if (/^cat /.test(input)) {
+    read(input.slice(4));
+  } else {
     console.log(`Invalid input${EOL}`);
   }
   
