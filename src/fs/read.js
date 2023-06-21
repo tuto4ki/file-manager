@@ -1,6 +1,7 @@
 import { Readable } from 'stream';
 import path from 'path';
 import fs from 'fs';
+import { EOL } from 'os';
 
 export default async function read (pathToFile) {
     const fileName = path.join(process.cwd(), pathToFile);
@@ -47,5 +48,5 @@ export default async function read (pathToFile) {
       
       let data = '';
       readable.on('data', chunk => data += chunk);
-      readable.on('end', () => process.stdout.write(data + '\n'));
+      readable.on('end', () => process.stdout.write(data + EOL));
 };
