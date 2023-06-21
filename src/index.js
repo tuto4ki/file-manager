@@ -6,6 +6,7 @@ import { EOL } from 'os';
 import { cdDir } from './nwd/cd.js';
 import { list } from './nwd/list.js';
 import read from './fs/read.js';
+import create from './fs/create.js';
 
 const userName = parseArgs();
 
@@ -27,6 +28,8 @@ rl.on('line', (input) => {
     list();
   } else if (/^cat /.test(input)) {
     read(input.slice(4));
+  } else if (/^add /.test(input)) {
+    create(input.slice(4));
   } else {
     console.log(`Invalid input${EOL}`);
   }
