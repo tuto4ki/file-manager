@@ -59,6 +59,9 @@ rl.on('line', (input) => {
         throw new Error(`${EOL}Enter correct data${EOL}`);
       }
       move(args[1], args[2]);
+    } else if (/^os --/.test(input)) {
+      const command = input.replace(/^os --/, '');
+      console.log(command);
     } else {
       console.log(`Invalid input${EOL}`);
     }
