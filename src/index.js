@@ -12,6 +12,7 @@ import copy from './fs/copy.js';
 import move from './fs/move.js';
 import { welcome, goodby } from './welcome.js';
 import { parseArgs } from './args.js';
+import infoOs from './os/infoOs.js';
 
 const userName = parseArgs();
 
@@ -60,8 +61,7 @@ rl.on('line', (input) => {
       }
       move(args[1], args[2]);
     } else if (/^os --/.test(input)) {
-      const command = input.replace(/^os --/, '');
-      console.log(command);
+      infoOs(input.replace(/^os --/, ''));
     } else {
       console.log(`Invalid input${EOL}`);
     }
