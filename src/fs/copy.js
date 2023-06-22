@@ -19,7 +19,13 @@ export default async function copy(pathFileInput, pathNewDirectoryInput) {
       const readStream = createReadStream(pathFile, 'utf-8');
       const writeStream = createWriteStream(pathNewFile, 'utf-8');
 
-      await pipeline(readStream, writeStream).then(() => console.log(`File copied!${EOL}`));
+      const isCopy = await pipeline(readStream, writeStream).then(() => true);
+
+      if (isCopy) {
+        console.log(`File copied!${EOL}`)
+        return true;
+      }
+
     } else {
        throw new Error(`A file with the same name already exists in directory${EOL}`);
     }
@@ -27,4 +33,6 @@ export default async function copy(pathFileInput, pathNewDirectoryInput) {
   } catch(error) {
     console.log(`${EOL}${error.message}${EOL}`);
   }
+
+  return false;
 }

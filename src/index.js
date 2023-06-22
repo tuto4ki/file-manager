@@ -1,8 +1,7 @@
-import { welcome, goodby } from './welcome.js';
-import { parseArgs } from './args.js';
 import readline from 'readline/promises';
 import { stdin, stdout } from 'process';
-import { EOL } from 'os';
+import os, { EOL } from 'os';
+
 import { cdDir } from './nwd/cd.js';
 import { list } from './nwd/list.js';
 import read from './fs/read.js';
@@ -10,7 +9,9 @@ import create from './fs/create.js';
 import rename from './fs/rename.js';
 import remove from './fs/delete.js';
 import copy from './fs/copy.js';
-import os from 'os';
+import move from './fs/move.js';
+import { welcome, goodby } from './welcome.js';
+import { parseArgs } from './args.js';
 
 const userName = parseArgs();
 
@@ -52,6 +53,12 @@ rl.on('line', (input) => {
         throw new Error(`${EOL}Enter correct data${EOL}`);
       }
       copy(args[1], args[2]);
+    } else if (/^mv /.test(input)) {
+      const args = input.trim().split(' ');
+      if (args.length < 3) {
+        throw new Error(`${EOL}Enter correct data${EOL}`);
+      }
+      move(args[1], args[2]);
     } else {
       console.log(`Invalid input${EOL}`);
     }
