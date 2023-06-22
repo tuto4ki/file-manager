@@ -9,10 +9,14 @@ import read from './fs/read.js';
 import create from './fs/create.js';
 import rename from './fs/rename.js';
 import remove from './fs/delete.js';
+import copy from './fs/copy.js';
+import os from 'os';
 
 const userName = parseArgs();
 
 welcome(userName);
+
+process.chdir(os.homedir());
 
 console.log(`You are currently in: ${process.cwd()}${EOL}`);
 
@@ -42,6 +46,12 @@ rl.on('line', (input) => {
       rename(fileNameArr[1], fileNameArr[2]);
     } else if (/^rm /.test(input)) {
       remove(input.split(' ')[1]);
+    } else if (/^cp /.test(input)) {
+      const args = input.trim().split(' ');
+      if (args.length < 3) {
+        throw new Error(`${EOL}Enter correct data${EOL}`);
+      }
+      copy(args[1], args[2]);
     } else {
       console.log(`Invalid input${EOL}`);
     }
