@@ -13,6 +13,7 @@ import move from './fs/move.js';
 import { welcome, goodby } from './welcome.js';
 import { parseArgs } from './args.js';
 import infoOs from './os/infoOs.js';
+import calculateHash from './hash/calcHash.js';
 
 const userName = parseArgs();
 
@@ -62,6 +63,8 @@ rl.on('line', (input) => {
       move(args[1], args[2]);
     } else if (/^os --/.test(input)) {
       infoOs(input.replace(/^os --/, ''));
+    } else if (/^hash /.test(input)) {
+      calculateHash(input.replace(/^hash /, ''));
     } else {
       console.log(`Invalid input${EOL}`);
     }
