@@ -1,10 +1,17 @@
 import { Readable } from 'stream';
-import path from 'path';
 import fs from 'fs';
 import { EOL } from 'os';
 
+import { getPathToFile } from '../utils.js';
+import {
+  ENCODING,
+  FILE_DONT_EXISTS,
+} from '../constants.js';
+
 export default async function read (pathToFile) {
-    const fileName = path.join(process.cwd(), pathToFile);
+
+    const fileName = getPathToFile(pathToFile);
+    
     class MyReadable extends Readable {
         constructor(fileName, encoding) {
           super();
@@ -43,10 +50,17 @@ export default async function read (pathToFile) {
             }
         }
       }
-       
-      const readable = new MyReadable(fileName, 'utf8');
-      
-      let data = '';
-      readable.on('data', chunk => data += chunk);
-      readable.on('end', () => process.stdout.write(data + EOL));
+      try {
+
+        await fs.promises.stat(fileName).catch(() => {
+          throw new Error(FILE_DONT_EXISTS);
+        });
+
+        const readable = new MyReadable(fileName, ENCODING);
+        readable.on('data', chunk => process.stdout.write(chunk));
+        readable.on('end', () => console.log(EOL));
+
+      } catch (error) {
+        console.error(`${error.message}${EOL}`);
+      }
 };

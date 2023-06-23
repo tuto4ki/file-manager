@@ -6,7 +6,7 @@ import { cdDir } from './nwd/cd.js';
 import { list } from './nwd/list.js';
 import read from './fs/read.js';
 import create from './fs/create.js';
-import rename from './fs/rename.js';
+import renameFile from './fs/rename.js';
 import remove from './fs/delete.js';
 import copy from './fs/copy.js';
 import move from './fs/move.js';
@@ -48,7 +48,7 @@ rl.on('line', (input) => {
       if (fileNameArr.length < 3) {
         throw new Error(`${EOL}Enter correct data${EOL}`);
       }
-      rename(fileNameArr[1], fileNameArr[2]);
+      renameFile(fileNameArr[1], fileNameArr[2]);
     } else if (/^rm /.test(input)) {
       remove(input.split(' ')[1]);
     } else if (/^cp /.test(input)) {
@@ -80,13 +80,13 @@ rl.on('line', (input) => {
         }
         decompress(args[1], args[2]);
     } else {
-      console.log(`Invalid input${EOL}`);
+      console.log(`${EOL}Invalid input${EOL}`);
     }
   } catch (error) {
     console.log(error.message);
   }
   
-  console.log(`You are currently in: ${process.cwd()}${EOL}`);
+  console.log(`${EOL}You are currently in: ${process.cwd()}${EOL}`);
 });
 
 rl.on('close', () => {
