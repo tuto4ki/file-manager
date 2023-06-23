@@ -14,6 +14,8 @@ import { welcome, goodby } from './welcome.js';
 import { parseArgs } from './args.js';
 import infoOs from './os/infoOs.js';
 import calculateHash from './hash/calcHash.js';
+import compress from './zip/compress.js';
+import decompress from './zip/decompress.js';
 
 const userName = parseArgs();
 
@@ -65,6 +67,18 @@ rl.on('line', (input) => {
       infoOs(input.replace(/^os --/, ''));
     } else if (/^hash /.test(input)) {
       calculateHash(input.replace(/^hash /, ''));
+    } else if (/^compress /.test(input)) {
+      const args = input.trim().split(' ');
+      if (args.length < 3) {
+        throw new Error(`${EOL}Enter correct data${EOL}`);
+      }
+      compress(args[1], args[2]);
+    } else if (/^decompress /.test(input)) {
+        const args = input.trim().split(' ');
+        if (args.length < 3) {
+          throw new Error(`${EOL}Enter correct data${EOL}`);
+        }
+        decompress(args[1], args[2]);
     } else {
       console.log(`Invalid input${EOL}`);
     }
