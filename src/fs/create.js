@@ -21,11 +21,11 @@ export default async function create (nameFile) {
   } catch (error) {
 
     if (error.code === ERROR_CODE.ENOENT) {
-      await appendFile(pathFile, '').then(() => console.log(`${FILE_ADDED}${EOL}`)).catch((err) => {
-        console.log(`${err.message}${EOL}`);
+      await appendFile(pathFile, '').then(() => console.log(`${EOL}${FILE_ADDED}`)).catch((err) => {
+        console.log(`${EOL}${err.message}`);
       });
     } else {
-      console.error(`${error.message}${EOL}`);
+      console.error(`${EOL}${error.message}`);
     }
 
   }

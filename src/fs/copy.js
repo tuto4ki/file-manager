@@ -32,7 +32,7 @@ export default async function copy(pathFileInput, pathNewDirectoryInput) {
       const isCopy = await pipeline(readStream, writeStream).then(() => true);
 
       if (isCopy) {
-        console.log(`${EOL}${FILE_COPIED}${EOL}`);
+        console.log(`${EOL}${FILE_COPIED}`);
         return true;
       }
 
@@ -41,7 +41,7 @@ export default async function copy(pathFileInput, pathNewDirectoryInput) {
     }
    
   } catch(error) {
-    console.log(`${EOL}${error.message}${EOL}`);
+    console.error(`${EOL}${error.message}`);
   }
 
   return false;

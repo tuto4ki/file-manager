@@ -16,7 +16,7 @@ export default async function remove (patFile, isShowMessage = true) {
 
     await unlink(filesName).then(() => {
       if (isShowMessage) {
-        console.log(`${FILE_REMOVED}${EOL}`);
+        console.log(`${EOL}${FILE_REMOVED}`);
       }
     }).catch((error) => {
       if (error.code === ERROR_CODE.ENOENT) {
@@ -25,6 +25,6 @@ export default async function remove (patFile, isShowMessage = true) {
     });
     
   } catch(err) {
-    console.error(`${err.message}${EOL}`);
+    console.error(`${EOL}${err.message}`);
   }
 };
