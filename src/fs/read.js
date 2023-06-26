@@ -3,21 +3,17 @@ import fs from 'fs';
 import { EOL } from 'os';
 
 import { getPathToFile } from '../utils.js';
-import {
-  ENCODING,
-  FILE_DONT_EXISTS,
-} from '../constants.js';
+import { FILE_DONT_EXISTS } from '../constants.js';
 
 export default async function read (pathToFile) {
 
   const fileName = getPathToFile(pathToFile);
 
   class MyReadable extends Readable {
-    constructor(fileName, encoding) {
+    constructor(fileName) {
       super();
       this.fileName = fileName;
       this.fileDescriptor = null;
-      this.setEncoding = encoding;
     }
 
     _construct(callback) {
@@ -56,7 +52,7 @@ export default async function read (pathToFile) {
       throw new Error(`${FILE_DONT_EXISTS} ${fileName}`);
     });
 
-    const readable = new MyReadable(fileName, ENCODING);
+    const readable = new MyReadable(fileName);
     readable.on('data', chunk => process.stdout.write(chunk));
     readable.on('end', () => console.log(EOL));
     readable.on('error', (error) => console.error(error.message));

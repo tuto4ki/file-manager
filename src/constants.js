@@ -16,8 +16,6 @@ export const FILE_DONT_EXISTS = 'No such file';
 
 export const ERROR_FILED = 'FS operation failed';
 
-export const ENCODING = 'utf-8';
-
 export const INVALID_INPUT = 'Invalid input';
 
 export const CPUS_DESC = 'Overall amount of CPUS';

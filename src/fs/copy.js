@@ -8,7 +8,6 @@ import {
   FILE_DONT_EXISTS,
   FILE_COPIED,
   FILE_EXISTS,
-  ENCODING,
 } from '../constants.js';
 import { getPathToFile } from '../utils.js';
 
@@ -26,8 +25,8 @@ export default async function copy(pathFileInput, pathNewDirectoryInput) {
     const isNewFile = await stat(pathNewFile).then(() => true).catch(() => false);
 
     if (!isNewFile) {
-      const readStream = createReadStream(pathFile, ENCODING);
-      const writeStream = createWriteStream(pathNewFile, ENCODING);
+      const readStream = createReadStream(pathFile);
+      const writeStream = createWriteStream(pathNewFile);
 
       const isCopy = await pipeline(readStream, writeStream).then(() => true);
 
